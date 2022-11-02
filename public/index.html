@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <style>
+        body{ background-color: ivory; }
+        #canvas{border:1px solid red;}
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width=900 height=900></canvas>
+    <script>
+        var canvas=document.getElementById("canvas");
+var ctx=canvas.getContext("2d");
+var cw=canvas.width;
+var ch=canvas.height;
+
+var x=150;
+var y=150;
+var scaleX=100;
+var angle=0;
+var scaleDirection=-1;
+var scaleDelta=1;
+var PI2=Math.PI*2;
+
+var backCanvas=document.createElement('canvas');
+var backCtx=backCanvas.getContext('2d');
+var imgCount=2;
+var front=new Image();front.onload=start;front.src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Atlas_deck_king_of_hearts.svg/1200px-Atlas_deck_king_of_hearts.svg.png";
+var back=new Image();back.onload=start;back.src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Card_back_01.svg/703px-Card_back_01.svg.png";
+function start(){
+  if(--imgCount>0){return;}
+  animate();
+}
+
+
+function draw(x,y,scaleX,angle){
+  ctx.clearRect(0,0,cw,ch);
+  ctx.translate(x,y);
+  ctx.rotate(angle);
+  ctx.scale(scaleX,1);
+  if(scaleX>=0){
+    ctx.drawImage(front,-front.width/2,-front.height/2);
+  }else{
+    ctx.drawImage(back,-back.width/2,-back.height/2);
+  }
+  ctx.setTransform(1,0,0,1,0,0);
+}
+
+function animate(time){
+  draw(x,y,scaleX/100,angle);
+  angle+=PI2/720;
+  scaleX+=scaleDirection*scaleDelta;
+  if(scaleX<-100 || scaleX>100){
+    scaleDirection*=-1;
+    scaleX+=scaleDirection*scaleDelta;
+  }
+  requestAnimationFrame(animate);
+}
+    </script>
+</body>
+</html>
