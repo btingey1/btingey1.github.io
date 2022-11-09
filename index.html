@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript" src="CCapture.js"></script>
+    <script src="CCapture.all.min.js"></script>
+    <script src="CCapture.min.js"></script>
+    <script src="CCapture.js"></script>
     <script type="text/javascript" src="webm-writer-0.2.0.js"></script>
     <script type="text/javascript" src="gif.js"></script>
     <script type="text/javascript" src="tar.js"></script>
@@ -41,7 +43,8 @@ var cw=canvas.width;
 var ch=canvas.height;
 
 var capturer = new CCapture( {
-	format: 'jpg',
+	format: 'gif',
+  framerate: 60,
 	verbose: true
 } );
 
@@ -60,6 +63,14 @@ var spaceAmountx;
 var spaceAmounty;
 var spaceEx = ' ';
 
+var front=new Image();
+front.crossOrigin = 'anonymous';
+front.src="https://i.imgur.com/NFfcv8i.png";
+var bg=new Image();
+bg.crossOrigin = 'anonymous';
+bg.src="https://i.imgur.com/VnYbZXf.png";
+
+
 function setValues () {
   holdX = document.getElementById("userHold").value;
   holdStr = holdX.toString();
@@ -74,12 +85,6 @@ function setValues () {
   capturer.start();
   draw();
 }
-
-
-var front=new Image();
-front.src="https://previews.dropbox.com/p/thumb/ABugqxhg0n1IcmgzRtf98Wne7fNwBeGbklx-Ubxp3YuDQ269QOhCPkLRB1a3iZbD0BsW9OZuzp2-REP96zAEiiJAjs_RkEIEgHLOpDcOaL0OfTS42sxlvl-XKmkc8R_51RTwesw7nlQtDHsYH5217blCxZXqk_lbdjNFAN1EX2bwOAaKU6EuSqx_Oyh-sChVjtSUxI6nQpvzQrFbQa61ISM99lLGnIKJq67zj4RNqcD2btlWqoaV8lAD4GJDDuPINfGP2Z7ztJBn7Q88Nbesvvee0XgX9LSw6TTCOX63kgA_kJvnCCoGr4dLxHiI4t8facY6xkdXgwJ4IjJKkiyP6jOLOgF0qegemtiAfzsEnzyXqNvoQGNwdLSZho8VQ-Oiis8/p.png";
-var bg=new Image();
-bg.src="https://ucbf4cd2f8bc8ec64694e1c928e5.previews.dropboxusercontent.com/p/thumb/ABvBdoM-uewdyvN26Bp0ZQ2J_Y_iNY8XHh-l_HX-2l7AZtJXgNjgQoIOwJIGyW933LFOwkceAnFtFl8qwkW-QiOTOfPfcvyzZLhugjKDwvI1L9T4RlilPc0pro2pDfZEEpg2QgWaS-ZQb4xxgad7QiiWAwXE8ZlD-GRtDDsix5t1kmA6U1Ll4SeJD9Tr3GtJNK_xKmY6-mDO5Wao5l6_8F65imFxRocHLRt-BcXKkwR5pcNpxM4uAbHZ1dQo-3rnk0TDljF1faXonM9xEuR4ipekPR_X2Sof_CTGwla6rYKfNWE0ae8jMpoPpTTs8pJ9YDGrzPHaZXtPuuRcPGNJaGRpYNxlPk4yKVBsAwN8KSef5QfmbPwYFPhi12z6lM3PChOt39wXbXyWjITmvQXiarUmnegoPKAqxqqM-hOqmy3fGg/p.png";
 
 function draw(){
   ctx.drawImage(bg,0,0)
